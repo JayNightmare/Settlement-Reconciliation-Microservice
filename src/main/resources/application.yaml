@@ -1,0 +1,72 @@
+spring:
+    application:
+        name: settlement-reconciliation
+    datasource:
+        url: jdbc:h2:mem:testdb
+        driver-class-name: org.h2.Driver
+        username: sa
+        password: 
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                format_sql: true
+        open-in-view: false
+        show-sql: true
+    h2:
+        console:
+            enabled: true
+    autoconfigure:
+        exclude:
+            - org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration
+    flyway:
+        enabled: false
+    batch:
+        job:
+            enabled: false
+        jdbc:
+            initialize-schema: never
+    kafka:
+        bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+        properties:
+            security.protocol: PLAINTEXT
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+        consumer:
+            group-id: settlement-reconciliation
+            auto-offset-reset: earliest
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    mail:
+        host: ${MAIL_HOST:localhost}
+        port: ${MAIL_PORT:1025}
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health,info,prometheus
+    endpoint:
+        health:
+            probes:
+                enabled: true
+
+reconciliation:
+    tolerances:
+        USD: 0.5
+        GBP: 0.3
+        EUR: 0.4
+    escalation:
+        sla: PT24H
+        notification-email: ${ESCALATION_EMAIL:ops-team@example.com}
+    kafka:
+        mismatch-topic: settlement.mismatches
+
+logging:
+    level:
+        root: INFO
+        com.barclays.settlement: DEBUG
+        com.zaxxer.hikari: DEBUG
+        org.hibernate.SQL: DEBUG

@@ -1,0 +1,4 @@
+﻿trade_id,account_id,currency,amount,trade_date,source_file
+TRD-1001,ACC-1,USD,1000.00,2024-06-01,trades.csv
+TRD-1002,ACC-2,GBP,2000.00,2024-06-01,trades.csv
+TRD-1003,ACC-3,EUR,1500.00,2024-06-02,trades.csv

@@ -1,0 +1,14 @@
+﻿/target/
+/.idea/
+/.project
+/.classpath
+/.settings/
+/.mvn/
+*.iml
+*.log
+.DS_Store
+/build/
+/.gradle/
+/help/
+/node_modules/
+/.vscode/
