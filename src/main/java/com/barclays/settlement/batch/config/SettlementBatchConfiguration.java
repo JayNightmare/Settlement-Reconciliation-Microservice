@@ -49,8 +49,7 @@ public class SettlementBatchConfiguration {
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
       @Qualifier("tradeCsvReader") ItemReader<TransactionCsvRecord> tradeCsvReader,
-      @Qualifier("tradeProcessor")
-          ItemProcessor<TransactionCsvRecord, TradeTransaction> tradeProcessor,
+      @Qualifier("tradeProcessor") ItemProcessor<TransactionCsvRecord, TradeTransaction> tradeProcessor,
       @Qualifier("tradeWriter") ItemWriter<TradeTransaction> tradeWriter) {
     return new StepBuilder("tradeIngestionStep", jobRepository)
         .<TransactionCsvRecord, TradeTransaction>chunk(500, transactionManager)
@@ -65,8 +64,7 @@ public class SettlementBatchConfiguration {
       JobRepository jobRepository,
       PlatformTransactionManager transactionManager,
       @Qualifier("ledgerCsvReader") ItemReader<TransactionCsvRecord> ledgerCsvReader,
-      @Qualifier("ledgerProcessor")
-          ItemProcessor<TransactionCsvRecord, LedgerTransaction> ledgerProcessor,
+      @Qualifier("ledgerProcessor") ItemProcessor<TransactionCsvRecord, LedgerTransaction> ledgerProcessor,
       @Qualifier("ledgerWriter") ItemWriter<LedgerTransaction> ledgerWriter) {
     return new StepBuilder("ledgerIngestionStep", jobRepository)
         .<TransactionCsvRecord, LedgerTransaction>chunk(500, transactionManager)

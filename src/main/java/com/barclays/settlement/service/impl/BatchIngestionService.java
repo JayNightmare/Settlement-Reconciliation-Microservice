@@ -24,10 +24,9 @@ public class BatchIngestionService implements IngestionService {
   @Override
   public void runIngestionJob() {
     try {
-      JobParameters jobParameters =
-          new JobParametersBuilder()
-              .addLong("timestamp", Instant.now().toEpochMilli())
-              .toJobParameters();
+      JobParameters jobParameters = new JobParametersBuilder()
+          .addLong("timestamp", Instant.now().toEpochMilli())
+          .toJobParameters();
       jobLauncher.run(settlementIngestionJob, jobParameters);
       log.info("Settlement ingestion job triggered successfully");
     } catch (Exception ex) {

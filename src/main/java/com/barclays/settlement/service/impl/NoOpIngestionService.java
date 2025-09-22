@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class NoOpIngestionService implements IngestionService {
 
-  @Override
-  public void runIngestionJob() {
-    log.info("No-op ingestion service - ingestion job disabled");
-  }
+    @Override
+    public void runIngestionJob() {
+        log.info("No-op ingestion service - ingestion job disabled");
+    }
 }

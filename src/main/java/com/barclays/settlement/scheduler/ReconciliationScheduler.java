@@ -38,9 +38,8 @@ public class ReconciliationScheduler {
   @Scheduled(cron = "0 0 6 * * *")
   public void escalateUnresolved() {
     Instant threshold = Instant.now().minus(reconciliationProperties.getEscalation().getSla());
-    var stale =
-        reconciliationResultRepository.findStaleWithStatus(
-            ReconciliationStatus.UNRESOLVED, threshold);
+    var stale = reconciliationResultRepository.findStaleWithStatus(
+        ReconciliationStatus.UNRESOLVED, threshold);
     notificationService.notifyUnresolvedMismatches(stale);
   }
 }
